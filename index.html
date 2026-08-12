@@ -129,8 +129,22 @@ body{background:#0f172a;color:#fff;text-align:center;padding:15px;min-height:100
 .bonus-zone{margin-bottom:15px;display:flex;flex-direction:column;gap:10px}
 .btn-bonus{width:100%;background:#eab308;color:#0f172a;padding:12px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-size:15px;box-shadow:0 4px 10px rgba(234,179,8,.3);transition:.2s}
 .btn-bonus:disabled{background:#475569;color:#94a3b8;cursor:not-allowed;box-shadow:none}
-.scratch-container{position:relative;width:300px;height:180px;margin:0 auto 15px;border-radius:16px;overflow:hidden;background:#2e1065;box-shadow:0 4px 15px rgba(0,0,0,.5);transition:.2s}
-.scratch-reveal{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:1;background:radial-gradient(circle at top,#fff7b0,#facc15,#b45309);color:#fff;text-shadow:0 2px 6px #000;overflow:hidden}.premiumReward{
+
+/* Scratch Card Premium Style */
+#scratchCard{
+  position:relative;
+  width:300px;
+  height:180px;
+  margin:0 auto 15px;
+  border-radius:18px;
+  overflow:hidden;
+  background:#2e1065;
+  box-shadow:0 8px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.12);
+  transition:.2s;
+}
+.scratch-reveal{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:1;background:radial-gradient(circle at top,#fff7b0,#facc15,#b45309);color:#fff;text-shadow:0 2px 6px #000;overflow:hidden}
+
+.premiumReward{
 position:relative;
 overflow:hidden;
 background:rgba(255,255,255,.15);
@@ -182,7 +196,12 @@ animation:fadeIn .4s;
 #promoMedia{max-width:95%;max-height:95%;border-radius:18px;box-shadow:0 0 30px gold;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
-#scratchCanvas{position:absolute;top:0;left:0;z-index:2;cursor:crosshair}
+#scratchCanvas{
+  position:relative;
+  z-index:2;
+  touch-action:none;
+  cursor:crosshair;
+}
 .peel{position:absolute;width:26px;height:26px;background:linear-gradient(135deg,#fff,#ececec,#bdbdbd,#fff);border-radius:4px;pointer-events:none;z-index:70;transform-origin:center;animation:peel .8s ease-out forwards;filter:drop-shadow(0 0 5px #fff)}
 @keyframes peel{0%{opacity:1;transform:rotate(0) scale(1)}100%{opacity:0;transform:translate(var(--px),var(--py)) rotate(900deg) scale(.2)}}
 .powder{position:absolute;width:6px;height:6px;border-radius:50%;z-index:50;pointer-events:none;animation:powderFly .8s ease-out forwards;box-shadow:0 0 4px #fff}
@@ -224,7 +243,9 @@ animation:fadeIn .4s;
 .pointer-tip::after{content:"";position:absolute;left:-8px;top:-43px;width:16px;height:16px;background:#fff;border:4px solid #ffd700;border-radius:50%;box-shadow:0 0 12px gold,0 0 20px orange}
 @keyframes pointerPulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.08)}}
 .center-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:radial-gradient(circle,#fff,#ffd700,#ff9800);border:5px solid #fff;box-shadow:0 0 20px gold,inset 0 4px 8px rgba(255,255,255,.8),inset 0 -6px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:34px;z-index:105}@keyframes wheelGlow{0%,100%{box-shadow:0 0 18px gold,0 0 35px orange,0 0 55px gold}50%{box-shadow:0 0 28px #fff176,0 0 50px gold,0 0 80px orange}}
-#spinBtn{position:relative;overflow:visible}#s{position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;z-index:999999;transition:.5s}
+#spinBtn{position:relative;overflow:visible}
+
+#s{position:fixed;inset:0;background:#000;display:flex;justify-content:center;align-items:center;z-index:999999;transition:.5s}
 #bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #gif{position:relative;width:230px;max-width:70%;display:none}
 #p{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#e11d48;color:#fff;padding:18px 25px;border-radius:12px;font:700 16px Arial;z-index:99999;box-shadow:0 0 20px #0008;text-align:center;width:80%;max-width:300px}
@@ -267,32 +288,46 @@ animation:fadeIn .4s;
 #toastTitle{font-size:17px;font-weight:700;color:#fff}
 #toastMsg{font-size:14px;margin-top:3px;color:#ddd}
 
-/* =========================================================
-   FRESH TUTORIAL / HAND / SPIN / BONUS SYSTEM
-   ========================================================= */
+/* =========================================
+   PREMIUM SCRATCH DEMO SPARK & GUIDE HAND
+   ========================================= */
 
-/* BIG GUIDE HAND */
-#guideHand{
+.scratchDemoSpark{
   position:fixed;
-  width:95px;
-  max-width:24vw;
-  left:-200px;
-  top:-200px;
-  z-index:99999;
+  z-index:10001;
   pointer-events:none;
-  display:none;
-  opacity:0;
-  transform:scale(1);
-  transform-origin:center bottom;
-  filter:drop-shadow(0 0 12px rgba(250,204,21,.95));
-  transition:
-    left .45s ease,
-    top .45s ease,
-    opacity .3s ease,
-    transform .18s ease;
+  font-size:16px;
+  color:#ffd700;
+  filter:drop-shadow(0 0 5px gold) drop-shadow(0 0 10px #fff);
+  animation:scratchSpark .8s ease-out forwards;
 }
 
-/* Tutorial glow */
+@keyframes scratchSpark{
+  0%{
+    opacity:1;
+    transform:translate(0,0) scale(.5) rotate(0deg);
+  }
+  50%{
+    opacity:1;
+    transform:translate(var(--sx),var(--sy)) scale(1.25) rotate(90deg);
+  }
+  100%{
+    opacity:0;
+    transform:translate(calc(var(--sx) * 1.8),calc(var(--sy) * 1.8)) scale(.2) rotate(180deg);
+  }
+}#guideHand{
+  position:fixed;
+  z-index:10000;
+  pointer-events:none;
+  width:65px;
+  height:auto;
+  filter:drop-shadow(0 5px 8px rgba(0,0,0,.35)) drop-shadow(0 0 8px rgba(255,215,0,.55));
+  transform-origin:50% 80%;
+  display:none;
+  opacity:0;
+  transition:left .45s ease, top .45s ease, opacity .3s ease, transform .18s ease;
+}
+
 .tutorialGlow{
   position:relative;
   z-index:9998 !important;
@@ -300,214 +335,76 @@ animation:fadeIn .4s;
 }
 
 @keyframes tutorialGlow{
-  0%,100%{
-    box-shadow:0 0 8px rgba(250,204,21,.45);
-  }
-  50%{
-    box-shadow:
-      0 0 18px rgba(250,204,21,.95),
-      0 0 35px rgba(250,204,21,.55);
-  }
+  0%,100%{ box-shadow:0 0 8px rgba(250,204,21,.45); }
+  50%{ box-shadow:0 0 18px rgba(250,204,21,.95), 0 0 35px rgba(250,204,21,.55); }
 }
 
-/* Hand press */
-.handPress{
-  transform:scale(.86) rotate(5deg) !important;
-}
+.handPress{ transform:scale(.86) rotate(5deg) !important; }
 
-/* Small hands completely hidden */
-#spinFinger,
-#tapFinger,
-#h,
-#tap{
-  display:none !important;
-}
-
-/* =========================================================
-   BONUS CLOSE BUTTON
-   ========================================================= */
-
+/* Bonus Close Button */
 .bonus-close-btn{
   position:absolute;
   top:10px;
   right:10px;
-
   width:40px;
   height:40px;
-
   border:0;
   border-radius:50%;
-
-  background:linear-gradient(
-    135deg,
-    #ef4444,
-    #dc2626
-  );
-
+  background:linear-gradient(135deg,#ef4444,#dc2626);
   color:#fff;
   font-size:22px;
   font-weight:900;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   cursor:pointer;
-
   z-index:50;
-
-  box-shadow:
-    0 0 12px rgba(239,68,68,.75),
-    0 4px 12px rgba(0,0,0,.4);
-
+  box-shadow:0 0 12px rgba(239,68,68,.75),0 4px 12px rgba(0,0,0,.4);
   transition:.2s;
 }
-
-.bonus-close-btn:active{
-  transform:scale(.8) rotate(-10deg);
-}
-
-/* =========================================================
-   BONUS NEXT POPUP BUTTON
-   ========================================================= */
+.bonus-close-btn:active{ transform:scale(.8) rotate(-10deg); }
 
 #bonusNextBtn{
   display:none;
-
   width:90%;
   margin:15px auto 0;
-
   padding:15px 12px;
-
   border:0;
   border-radius:16px;
-
   color:#fff;
-
   font-size:17px;
   font-weight:900;
-
-  background:
-    linear-gradient(
-      135deg,
-      #22c55e,
-      #06b6d4,
-      #2563eb
-    );
-
-  box-shadow:
-    0 0 12px rgba(34,197,94,.8),
-    0 0 30px rgba(6,182,212,.5);
-
+  background:linear-gradient(135deg,#22c55e,#06b6d4,#2563eb);
+  box-shadow:0 0 12px rgba(34,197,94,.8),0 0 30px rgba(6,182,212,.5);
   cursor:pointer;
 }
 
 #bonusNextBtn.show{
   display:block;
-  animation:
-    bonusNextPop .55s
-    cubic-bezier(.2,1.4,.4,1)
-    forwards,
-    bonusNextPulse 1.5s
-    ease-in-out
-    .7s
-    infinite;
+  animation:bonusNextPop .55s cubic-bezier(.2,1.4,.4,1) forwards, bonusNextPulse 1.5s ease-in-out .7s infinite;
 }
 
 @keyframes bonusNextPop{
-  0%{
-    opacity:0;
-    transform:translateY(30px) scale(.65);
-  }
-
-  60%{
-    opacity:1;
-    transform:translateY(-5px) scale(1.08);
-  }
-
-  100%{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+  0%{ opacity:0; transform:translateY(30px) scale(.65); }
+  60%{ opacity:1; transform:translateY(-5px) scale(1.08); }
+  100%{ opacity:1; transform:translateY(0) scale(1); }
 }
 
 @keyframes bonusNextPulse{
-  0%,100%{
-    box-shadow:
-      0 0 12px rgba(34,197,94,.8),
-      0 0 30px rgba(6,182,212,.5);
-  }
-
-  50%{
-    box-shadow:
-      0 0 22px rgba(34,197,94,1),
-      0 0 45px rgba(6,182,212,.9);
-  }
+  0%,100%{ box-shadow:0 0 12px rgba(34,197,94,.8),0 0 30px rgba(6,182,212,.5); }
+  50%{ box-shadow:0 0 22px rgba(34,197,94,1),0 0 45px rgba(6,182,212,.9); }
 }
-
-/* =========================================================
-   SPIN CLAIM POP
-   ========================================================= */
 
 #spinClaimBtn.spinClaimReady{
   display:block !important;
-
-  animation:
-    spinClaimPop .55s
-    cubic-bezier(.2,1.4,.4,1)
-    forwards,
-    spinClaimPulse 1.4s
-    ease-in-out
-    .7s
-    infinite;
+  animation:spinClaimPop .55s cubic-bezier(.2,1.4,.4,1) forwards, spinClaimPulse 1.4s ease-in-out .7s infinite;
 }
 
-@keyframes spinClaimPop{
-  0%{
-    opacity:0;
-    transform:scale(.5);
-  }
+@keyframes spinClaimPop{ 0%{opacity:0;transform:scale(.5);} 60%{opacity:1;transform:scale(1.12);} 100%{opacity:1;transform:scale(1);} }
+@keyframes spinClaimPulse{ 0%,100%{box-shadow:0 0 10px rgba(6,182,212,.7);} 50%{box-shadow:0 0 22px rgba(6,182,212,1),0 0 40px rgba(6,182,212,.7);} }
 
-  60%{
-    opacity:1;
-    transform:scale(1.12);
-  }
-
-  100%{
-    opacity:1;
-    transform:scale(1);
-  }
-}
-
-@keyframes spinClaimPulse{
-  0%,100%{
-    box-shadow:0 0 10px rgba(6,182,212,.7);
-  }
-
-  50%{
-    box-shadow:
-      0 0 22px rgba(6,182,212,1),
-      0 0 40px rgba(6,182,212,.7);
-  }
-}
-
-/* =========================================================
-   SCROLL HAND HIDE
-   ========================================================= */
-
-.handScrollHidden{
-  opacity:0 !important;
-  visibility:hidden !important;
-}
-
-/* =========================================================
-   SPIN BUTTON PRESSED
-   ========================================================= */
-
-#spinBtn.spinPressed{
-  transform:scale(.94);
-  transition:.12s;
-}
+.handScrollHidden{ opacity:0 !important; visibility:hidden !important; }
+#spinBtn.spinPressed{ transform:scale(.94); transition:.12s; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
@@ -515,7 +412,10 @@ animation:fadeIn .4s;
 <div id="s"><img id="bg" src="img/splash1.jpg" alt="Splash"><img id="gif" src="img/splash2.gif" alt="Splash GIF"><div id="loaderWrap"><div id="loaderBar"><div id="loaderFill"><div id="loaderGlow"></div></div><div id="rocket">🚀</div></div><div id="loaderText">Loading... 0%</div><div id="welcomeText">🍄 Kundu Mushroom Farm 🍄</div></div></div>
 <div id="confirmPop" class="cPop"><div class="cBox"><div class="cIcon">🏦</div><h2>ক্যাশ আউট</h2><p id="cMsg">আপনি কি নিশ্চিত?</p><div class="cBtn"><button onclick="closePop()">না</button><button onclick="okPop()">হ্যাঁ</button></div></div></div>
 <div id="upiPop" class="uPop"><div class="uBox"><span class="x" onclick="cUPI()">✕</span><img src="img/profile.png" class="pic" alt="Profile"><h2>Bubai Kundu</h2><p>পেমেন্ট করার মাধ্যম বেছে নিন</p><button onclick="oUPI('7047643951@ibl')"><img src="img/phonepe.png" alt="PhonePe">PhonePe</button><button onclick="oUPI('bubaikundu635@okhdfcbank')"><img src="img/gpay.png" alt="Google Pay">Google Pay</button><button onclick="oUPI('7047643951@superyes')"><img src="img/superyes.png" alt="SuperYes">SuperYes</button></div></div>
-<div id="mClaim" class="mClaim"><div class="mCard"><div class="mIcon">🍄</div><h2>100g Mushroom Completed</h2><p>আপনার 100g Mushroom পূর্ণ হয়েছে।<br>Claim Cash করুন।</p><input id="mcName" placeholder="👤 নাম"><input id="mcPhone" maxlength="10" type="tel" placeholder="📞 মোবাইল নম্বর"><button id="mushroomClaimBtn" onclick="claimMushroomCash()">🍄 Claim Cash</button></div></div><audio id="sS" src="https://files.catbox.moe/po27od.mp3" loop preload="auto"></audio>
+<div id="mClaim" class="mClaim"><div class="mCard"><div class="mIcon">🍄</div><h2>100g Mushroom Completed</h2><p>আপনার 100g Mushroom পূর্ণ হয়েছে।<br>Claim Cash করুন।</p><input id="mcName" placeholder="👤 নাম"><input id="mcPhone" maxlength="10" type="tel" placeholder="📞 মোবাইল নম্বর"><button id="mushroomClaimBtn" onclick="claimMushroomCash()">🍄 Claim Cash</button></div></div>
+
+<!-- AUDIOS -->
+<audio id="sS" src="https://files.catbox.moe/po27od.mp3" loop preload="auto"></audio>
 <audio id="cS" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
 <audio id="mS" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3" preload="auto"></audio>
 <audio id="pS" src="https://assets.mixkit.co/active_storage/sfx/270/270-preview.mp3" preload="auto"></audio>
@@ -523,8 +423,12 @@ animation:fadeIn .4s;
 <audio id="scS" src="https://assets.mixkit.co/active_storage/sfx/2020/2020-preview.mp3" preload="auto"></audio>
 <audio id="eS" src="https://assets.mixkit.co/active_storage/sfx/2955/2955-preview.mp3" preload="auto"></audio>
 <audio id="spinSound" src="audio/spin.mp3" preload="auto"></audio>
-<audio id="moneySound" src="audio/money.mp3" preload="auto"></audio>
 <audio id="clapS" src="audio/clap.mp3" preload="auto"></audio>
+
+<audio id="welcomeSound" src="audio/welcome.mp3" preload="auto"></audio>
+<audio id="moneySound" src="audio/Money sound.mp3" preload="auto"></audio>
+<audio id="mushroomSound" src="audio/Mushroom Sound.mp3" preload="auto"></audio>
+<audio id="coinDropSound" src="audio/coins.mp3" preload="auto"></audio>
 
 <div class="container">
   <canvas id="confetti" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99"></canvas>
@@ -572,42 +476,19 @@ animation:fadeIn .4s;
 
 <div id="bonusModal" class="modal">
   <div class="modal-content">
-    <!-- CLOSE -->
-    <button
-      type="button"
-      class="bonus-close-btn"
-      onclick="closeBonusModal()">
-      ✕
-    </button>
+    <button type="button" class="bonus-close-btn" onclick="closeBonusModal()">✕</button>
 
-    <div class="modal-title">
-      🎉 ফ্রি বোনাস অফার!
-    </div>
-
-    <div class="modal-text">
-      আপনি পেতে পারেন 🎊
-      <b>5,000</b> পয়েন্ট পর্যন্ত
-      ফ্রি 🪙 ক্যাশ বোনাস!
-    </div>
+    <div class="modal-title">🎉 ফ্রি বোনাস অফার!</div>
+    <div class="modal-text">আপনি পেতে পারেন 🎊 <b>5,000</b> পয়েন্ট পর্যন্ত ফ্রি 🪙 ক্যাশ বোনাস!</div>
 
     <div id="bonusTimer" style="margin-bottom:12px;font-weight:700;color:#facc15;"></div>
 
-    <!-- MAIN BONUS BUTTON -->
-    <button
-      id="bonusClaimBtn"
-      class="btn-modal-claim"
-      onclick="playClickSound();bonusTutorialClick();">
+    <button id="bonusClaimBtn" class="btn-modal-claim" onclick="playClickSound();claimDailyBonus();">
       🎁 ফ্রি বোনাস (ক্যাশ)
     </button>
 
-    <!-- BONUS COMPLETE / NEXT -->
-    <button
-      id="bonusNextBtn"
-      type="button"
-      onclick="bonusNextClick()">
-      ✨ বোনাস সম্পূর্ণ হয়েছে
-      <br>
-      👉 পরবর্তী ধাপে যান
+    <button id="bonusNextBtn" type="button" onclick="bonusNextClick()">
+      ✨ বোনাস সম্পূর্ণ হয়েছে<br>👉 পরবর্তী ধাপে যান
     </button>
   </div>
 </div>
@@ -629,16 +510,14 @@ animation:fadeIn .4s;
       </svg>
     </div>
     <div id="spinReward" style="margin:10px 0;font-size:15px;font-weight:700;color:#facc15">কোড ভেরিফাই করে স্পিন করুন!</div>
-    <button
-      id="spinBtn"
-      class="btn-modal-claim"
-      onclick="playClickSound();spinOrderWheel()">
+    <button id="spinBtn" class="btn-modal-claim" onclick="playClickSound();spinOrderWheel()">
       🎡 SPIN NOW
     </button>
     <button id="spinClaimBtn" class="btn-modal-claim" style="display:none;margin-top:10px;background:#06b6d4" onclick="playClickSound();claimSpinReward()">🛒 Claim Reward</button>
   </div>
-  </div>
-      <div id="withdrawModal" class="modal">
+</div>
+
+<div id="withdrawModal" class="modal">
   <div class="modal-content">
     <div class="modal-title">💵 ক্যাশ আউট / Contact</div>
     <input id="wName" class="modal-input" placeholder="আপনার 👤 নাম লিখুন">
@@ -675,6 +554,8 @@ let isScr=!1,isDraw=!1,lx=0,ly=0,cRew=null,pCash=0,sparkleTimer=null,canSpin=!1,
 
 const codeInput=document.getElementById("codeInput");
 const sS=document.getElementById("sS"),cS=document.getElementById("cS"),mS=document.getElementById("mS"),pS=document.getElementById("pS"),gS=document.getElementById("gS"),eS=document.getElementById("eS"),clapS=document.getElementById("clapS");
+const welcomeSound=document.getElementById("welcomeSound"),moneySound=document.getElementById("moneySound"),mushroomSound=document.getElementById("mushroomSound"),coinDropSound=document.getElementById("coinDropSound");
+
 const lMsg=document.getElementById("loaderMsg"),lZone=document.getElementById("loaderZone"),cT=document.getElementById("cTimer"),cv=document.getElementById("scratchCanvas"),cx=cv.getContext("2d");
 const upiPop=document.getElementById("upiPop"),mClaim=document.getElementById("mClaim");
 const hand = document.getElementById("guideHand");
@@ -694,6 +575,28 @@ const rews=[
 ];
 const dPool=[100,15,10,25,19,49,99];
 
+function playSound(audio){
+  if(!audio) return;
+  try{
+    audio.pause();
+    audio.currentTime=0;
+    audio.play().catch(()=>{});
+  }catch(e){}
+}
+
+function playWelcomeSound(){ playSound(welcomeSound); }
+function playMoneySound(){ playSound(moneySound); }
+function playMushroomSound(){ playSound(mushroomSound); }
+function playCoinDropSound(){ playSound(coinDropSound); }
+
+function stopTutorialVoice(){
+  try{
+    if("speechSynthesis" in window){
+      speechSynthesis.cancel();
+    }
+  }catch(e){}
+}
+
 function speak(e,t="bn-IN"){
   if("speechSynthesis" in window){
     speechSynthesis.cancel();
@@ -701,7 +604,9 @@ function speak(e,t="bn-IN"){
     s.lang=t; s.rate=.9; s.pitch=1;
     speechSynthesis.speak(s);
   }
-}function speakBN(text){
+}
+
+function speakBN(text){
   if("speechSynthesis" in window){
     speechSynthesis.cancel();
     let u=new SpeechSynthesisUtterance(text);
@@ -711,9 +616,7 @@ function speak(e,t="bn-IN"){
     u.volume=1;
     speechSynthesis.speak(u);
   }
-}
-
-function pop(msg,type="info"){
+    }function pop(msg,type="info"){
   let toast=document.getElementById("toast");
   let icon=document.getElementById("toastIcon");
   let title=document.getElementById("toastTitle");
@@ -729,6 +632,7 @@ function pop(msg,type="info"){
   navigator.vibrate&&navigator.vibrate(120);
   setTimeout(()=>{ toast.classList.remove("show"); },3500);
 }
+
 function showConfirm(e,t){document.getElementById("cMsg").innerHTML=e;document.getElementById("confirmPop").style.display="flex";okFn=t}
 function closePop(){document.getElementById("confirmPop").style.display="none"}
 function okPop(){closePop();if(okFn)okFn()}
@@ -768,22 +672,6 @@ function playSpinSound(){
     sound.play().catch(err => {
       console.log("Spin sound blocked:", err);
     });
-  }
-}
-
-function playMoneySound(){
-  try{
-    const sound = document.getElementById("moneySound");
-    if(sound){
-      sound.pause();
-      sound.currentTime = 0;
-      sound.volume = 1.0;
-      sound.play().catch(err=>{
-        console.log("Money sound blocked:", err);
-      });
-    }
-  }catch(e){
-    console.log(e);
   }
 }
 
@@ -911,11 +799,7 @@ function premiumRewardFX(){
   flashEl.style.zIndex="999";
   box.appendChild(flashEl);
 
-  flashEl.animate([
-    {opacity:1},
-    {opacity:0}
-  ],{duration:400});
-
+  flashEl.animate([{opacity:1},{opacity:0}],{duration:400});
   setTimeout(()=>flashEl.remove(),400);
 
   for(let i=0;i<80;i++){
@@ -927,12 +811,7 @@ function premiumRewardFX(){
     setTimeout(()=>coin.remove(),2000);
   }
 
-  confetti({
-    particleCount:220,
-    spread:170,
-    origin:{y:.6}
-  });
-
+  confetti({particleCount:220,spread:170,origin:{y:.6}});
   navigator.vibrate?.([100,50,100]);
   playClap();
 }
@@ -973,6 +852,7 @@ function scratchEdge(e,t){
   s.addColorStop(0,"rgba(255,255,255,.35)");s.addColorStop(.4,"rgba(220,220,220,.18)");s.addColorStop(1,"rgba(255,255,255,0)");
   cx.fillStyle=s;cx.beginPath();cx.arc(e,t,22,0,6.283);cx.fill();cx.restore();
 }
+
 function scratchPowder(e,t){
   let s=document.querySelector(".scratch-container");
   for(let a=0;a<3;a++){
@@ -992,6 +872,7 @@ function silverFoil(e,t){
     s.appendChild(o);setTimeout(()=>o.remove(),900);
   }
 }
+
 function doScr(e){
   if(isDraw&&!isScr){
     let t=getP(e);
@@ -1007,26 +888,20 @@ function chkScr(){
     let e=cx.getImageData(0,0,cv.width,cv.height).data,t=0;
     for(let s=0;s<e.length;s+=4){ if(e[s+3]==0)t++; }
     if(t/(e.length/4)>.45){
-      isScr=true; isDraw=false;
+      isScr=true;
+      isDraw=false;
+
       localStorage.setItem("scratch_done","YES");
       localStorage.setItem("scratchDone","1");
-      stopS(); clearInterval(sparkleTimer);
+
+      stopScratchDemo();
+      stopTutorialVoice?.();
+
+      stopS();
+      clearInterval(sparkleTimer);
+
       cx.clearRect(0,0,cv.width,cv.height);
       hRew();
-
-      /* ==========================
-         SCRATCH COMPLETE
-      ========================== */
-      stopTutorialTimer();
-      stopTutorialVoice();
-
-      hideHand();
-
-      tutorialStep = 5;
-
-      setTimeout(()=>{
-        runTutorial();
-      },1000);
     }
   }
 }
@@ -1034,43 +909,80 @@ function chkScr(){
 function hRew(){
   premiumRewardFX();
 
+  /* REWARD SOUND HANDLER */
+  if(cRew.type==="cash"){
+    playMoneySound();
+  }else if(cRew.type==="mushroom"){
+    playMushroomSound();
+  }else if(cRew.type==="points"){
+    playCoinDropSound();
+  }
+
   if("cash"===cRew.type){
-    flyReward("cash");cash+=cRew.val;
-    localStorage.setItem("km_cash",cash);uUI();pAud("mS");sLdr("ক্যাশ যোগ হচ্ছে...",8,()=>initCv());
+    flyReward("cash");
+    cash+=cRew.val;
+    localStorage.setItem("km_cash",cash);
+    uUI();
+    pAud("mS");
+    sLdr("ক্যাশ যোগ হচ্ছে...",8,()=>initCv());
   }else if("mushroom"===cRew.type){
-    flyReward("mushroom");shroom+=cRew.val;
-    localStorage.setItem("km_shroom",shroom);uUI();pAud("gS");
+    flyReward("mushroom");
+    shroom+=cRew.val;
+    localStorage.setItem("km_shroom",shroom);
+    uUI();
+    pAud("gS");
     pop("🍄 "+cRew.val+"g Mushroom Wallet-এ যোগ হয়েছে। ১০ সেকেন্ড পরে Cash-এ Convert হবে।","info");
     let e=cRew.val;
     setTimeout(()=>{
       if(shroom>=e){
-        shroom-=e;let t=e/10;cash+=t;
-        localStorage.setItem("km_shroom",shroom);localStorage.setItem("km_cash",cash);
-        uUI();pop("💰 "+e+"g Mushroom = ₹"+t+" Cash এ যোগ হয়েছে","success");
+        shroom-=e;
+        let t=e/10;
+        cash+=t;
+        localStorage.setItem("km_shroom",shroom);
+        localStorage.setItem("km_cash",cash);
+        uUI();
+        pop("💰 "+e+"g Mushroom = ₹"+t+" Cash এ যোগ হয়েছে","success");
         speak("অভিনন্দন। আপনার মাশরুম ক্যাশে কনভার্ট হয়েছে।");
       }
-    },1e4);
+    },10000);
     sLdr("মাশরুম যোগ হচ্ছে...",8,()=>initCv());
   }else if("points"===cRew.type){
-    flyReward("points");pts+=cRew.val;
-    pCash=cRew.val/100;localStorage.setItem("km_points",pts);uUI();pAud("pS");
+    flyReward("points");
+    pts+=cRew.val;
+    pCash=cRew.val/100;
+    localStorage.setItem("km_points",pts);
+    uUI();
+    pAud("pS");
     sLdr("পয়েন্ট যোগ হচ্ছে...",8,()=>{
-      let e=15;lMsg.innerText="১৫ সেকেন্ড পরে ক্যাশে কনভার্ট হবে...";lZone.style.display="block";cT.innerText=e;
+      let e=15;
+      lMsg.innerText="১৫ সেকেন্ড পরে ক্যাশে কনভার্ট হবে...";
+      lZone.style.display="block";
+      cT.innerText=e;
       let t=setInterval(()=>{
-        e--;cT.innerText=e;
+        e--;
+        cT.innerText=e;
         if(e<=0){
-          clearInterval(t);cash+=pCash;pts=0;
-          localStorage.setItem("km_cash",cash);localStorage.setItem("km_points",0);
-          uUI();pAud("mS");lZone.style.display="none";pCash=0;initCv();
+          clearInterval(t);
+          cash+=pCash;
+          pts=0;
+          localStorage.setItem("km_cash",cash);
+          localStorage.setItem("km_points",0);
+          uUI();
+          pAud("mS");
+          lZone.style.display="none";
+          pCash=0;
+          initCv();
         }
-      },1e3);
+      },1000);
     });
   }else{
-    pAud("eS");sLdr("ফলাফল চোখ রাখুন...",8,()=>initCv());
+    pAud("eS");
+    sLdr("ফলাফল চোখ রাখুন...",8,()=>initCv());
   }
-}
 
-function sLdr(e,t,s){
+  tutorialStep=4;
+  setTimeout(runTutorial,1000);
+    }function sLdr(e,t,s){
   let a=document.getElementById("pFill");
   lMsg.innerText=e;lZone.style.display="block";a.style.width="100%";a.style.transition=`width ${t}s linear`;
   setTimeout(()=>a.style.width="0%",20);cT.innerText=t;
@@ -1080,30 +992,87 @@ function sLdr(e,t,s){
   },1e3);
 }
 
+/* =========================================
+   NEW OPEN BONUS MODAL
+   ========================================= */
 function openBonusModal(){
-  pAud("cS");
+  // ১. সঙ্গে সঙ্গে Tutorial Voice বন্ধ
+  stopTutorialVoice();
+
+  // ২. আগের হাত সঙ্গে সঙ্গে সরিয়ে দিন
+  hideHand();
+
+  // ৩. Bonus popup খুলুন
   const modal = document.getElementById("bonusModal");
-  if(modal) modal.style.display="flex";
+  modal.style.display = "flex";
+
+  // ৪. Popup আসার পর Claim button-এ বড় হাত নিয়ে যান
+  setTimeout(() => {
+    const btn = document.getElementById("bonusClaimBtn");
+    if(!btn || !hand) return;
+
+    const r = btn.getBoundingClientRect();
+    hand.style.display = "block";
+    hand.style.opacity = "1";
+    hand.style.transition = "all .5s ease";
+
+    hand.style.left = (r.left + r.width / 2 - 20) + "px";
+    hand.style.top = (r.top + r.height / 2 - 10) + "px";
+    hand.style.transform = "scale(1) rotate(0deg)";
+
+    btn.classList.add("tutorialGlow");
+
+    /* ৩ সেকেন্ড পরে প্রথম Click */
+    setTimeout(() => {
+      if(!document.body.contains(btn)) return;
+      tapHand(btn);
+
+      /* আরও ৩ সেকেন্ড পরে দ্বিতীয় Click */
+      setTimeout(() => {
+        if(!document.body.contains(btn)) return;
+        tapHand(btn);
+      }, 3000);
+
+    }, 3000);
+
+  }, 400);
+}
+
+/* =========================================
+   NEW CLAIM DAILY BONUS
+   ========================================= */
+function claimDailyBonus(){
+  // Button চাপলেই Voice বন্ধ
+  stopTutorialVoice();
+
+  // Tutorial timer বন্ধ
+  if(typeof stopTutorialTimer === "function"){
+    stopTutorialTimer();
+  }
+
+  // বড় হাত সঙ্গে সঙ্গে সরিয়ে দিন
+  hideHand();
+
+  const btn = document.getElementById("bonusClaimBtn");
+  if(btn){
+    btn.classList.remove("tutorialGlow");
+  }
+
+  bonusTutorialClick();
 }
 
 function bonusTutorialClick(){
-  hideHand();
-  stopTutorialVoice();
-  stopTutorialTimer();
-
   localStorage.setItem("bonusStarted", "1");
-
   const btn = document.getElementById("bonusClaimBtn");
   if(btn){
     btn.disabled = true;
     btn.style.transform = "scale(.94)";
     btn.style.opacity = ".75";
   }
-
-  claimDailyBonus();
+  execClaimDailyBonus();
 }
 
-function claimDailyBonus(){
+function execClaimDailyBonus(){
   let lastBonus = Number(localStorage.getItem("last_bonus_time") || 0);
   if(Date.now() - lastBonus < BONUS_TIME){
     pop("⏳ পরবর্তী বোনাস ২৪ ঘণ্টা পরে পাবেন","warning");
@@ -1215,17 +1184,14 @@ function spinOrderWheel(){
 
   localStorage.setItem("spinStarted", "1");
 
-  // Spin Now চাপার সঙ্গে সঙ্গে Tutorial Voice বন্ধ
   stopTutorialVoice();
   stopTutorialTimer();
 
-  // ছোট হাতটি সঙ্গে সঙ্গে সরিয়ে দিন
   const spinFinger = document.getElementById("spinFinger");
   if(spinFinger){
     spinFinger.style.display = "none";
   }
 
-  // Spin sound শুরু
   playSpinSound();
 
   const btn = document.getElementById("spinBtn");
@@ -1253,7 +1219,6 @@ function spinOrderWheel(){
   wheel.style.transform = `rotate(${currentRotation}deg)`;
 
   setTimeout(() => {
-    // Wheel থামার পর sound বন্ধ
     const sound = document.getElementById("spinSound");
     if(sound){
       sound.pause();
@@ -1304,26 +1269,15 @@ function showSpinReward(reward){
   }
 
   document.getElementById("spinReward").innerHTML=`
-      <div style="
-          background:linear-gradient(135deg,#ffd700,#ff9800);
-          padding:18px;
-          border-radius:18px;
-          color:#fff;
-          box-shadow:0 0 25px gold;
-          animation:pop .4s;
-      ">
+      <div style="background:linear-gradient(135deg,#ffd700,#ff9800);padding:18px;border-radius:18px;color:#fff;box-shadow:0 0 25px gold;animation:pop .4s;">
           <div style="font-size:55px">${icon}</div>
-          <div style="font-size:22px;font-weight:800;margin-top:8px">
-              ${reward}
-          </div>
+          <div style="font-size:22px;font-weight:800;margin-top:8px">${reward}</div>
       </div>
   `;
 
   speak(voice,"bn-IN");
+  document.getElementById("spinBtn").style.display="none";
 
-  document.getElementById("spinBtn").style.display="none";/* ==========================================
-     SPIN CLAIM READY
-  ========================================== */
   setTimeout(()=>{
     const claim = document.getElementById("spinClaimBtn");
     if(!claim) return;
@@ -1397,9 +1351,7 @@ function submitWithdraw(){
 
   fetch(PAYMENT_API,{
     method:"POST",
-    headers:{
-      "Content-Type":"application/x-www-form-urlencoded"
-    },
+    headers:{ "Content-Type":"application/x-www-form-urlencoded" },
     body:new URLSearchParams({
       action:"withdraw",
       code:codeInput.value,
@@ -1412,24 +1364,13 @@ function submitWithdraw(){
   })
   .then(r=>r.text())
   .then(res=>{
-    // ✅ সফল হলে Money Sound
     playMoneySound();
-
-    pop(
-      "✅ Withdraw Request পাঠানো হয়েছে",
-      "success"
-    );
-
+    pop("✅ Withdraw Request পাঠানো হয়েছে","success");
     closeWithdrawModal();
   })
   .catch(err=>{
-    // ❌ ব্যর্থ হলে সঙ্গে সঙ্গে Voice
     withdrawFailedVoice();
-
-    pop(
-      "❌ Request Failed",
-      "error"
-    );
+    pop("❌ Request Failed","error");
   });
 }
 
@@ -1480,9 +1421,7 @@ function checkPayment(){
     }
   })
   .catch(console.error);
-}
-
-function checkMushroomClaim(){
+    }function checkMushroomClaim(){
   if(shroom>=100){
     mClaim.style.display="flex";
     speak("অভিনন্দন! আপনার ১০০ গ্রাম মাশরুম সম্পূর্ণ হয়েছে! বাটনে ক্লিক করে! এখনই ক্যাশ করুন।।");
@@ -1494,8 +1433,7 @@ function claimMushroomCash(){
   let t=document.getElementById("mcPhone").value.trim();
 
   if(!e) return pop("নাম লিখুন","warning");
-  if(t.length!=10 || /\D/.test(t))
-    return pop("সঠিক মোবাইল নাম্বার লিখুন","error");
+  if(t.length!=10 || /\D/.test(t)) return pop("সঠিক মোবাইল নাম্বার লিখুন","error");
 
   fetch(PAYMENT_API,{
     method:"POST",
@@ -1534,21 +1472,13 @@ function showPromoSequence(){
     media.src = "img/offer1.gif";
     setTimeout(()=>{
       media.src = "img/offer2.gif";
-      setTimeout(()=>{
-        popup.style.display = "none";
-      }, 4000);
+      setTimeout(()=>{ popup.style.display = "none"; }, 4000);
     }, 6000);
   }, 5000);
 }
 
 /* =========================================================
-   FRESH TUTORIAL SYSTEM
-
-   1 = CODE
-   2 = SPIN
-   3 = BONUS
-   4 = SCRATCH
-   5 = COMPLETE
+   TUTORIAL & HAND ANIMATIONS
    ========================================================= */
 
 let tutorialStep = 0;
@@ -1559,46 +1489,24 @@ let scrollTimer = null;
 let demoRun = false;
 let demoTimer = null;
 
-function stopTutorialVoice(){
-  try{
-    if("speechSynthesis" in window){
-      speechSynthesis.cancel();
-    }
-  }catch(e){}
-}
-
 function stopTutorialTimer(){
-  if(tutorialTimer){
-    clearInterval(tutorialTimer);
-    tutorialTimer = null;
-  }
-  if(tutorialVoiceTimer){
-    clearInterval(tutorialVoiceTimer);
-    tutorialVoiceTimer = null;
-  }
+  if(tutorialTimer){ clearInterval(tutorialTimer); tutorialTimer = null; }
+  if(tutorialVoiceTimer){ clearInterval(tutorialVoiceTimer); tutorialVoiceTimer = null; }
 }
 
 function moveHand(target){
   if(!target || !hand)return;
-
   tutorialTarget = target;
 
-  document.querySelectorAll(".tutorialGlow").forEach(el=>{
-    el.classList.remove("tutorialGlow");
-  });
+  document.querySelectorAll(".tutorialGlow").forEach(el=>{ el.classList.remove("tutorialGlow"); });
 
   const r = target.getBoundingClientRect();
-
   if(r.top < 0 || r.bottom > window.innerHeight){
-    target.scrollIntoView({
-      behavior:"smooth",
-      block:"center"
-    });
+    target.scrollIntoView({ behavior:"smooth", block:"center" });
   }
 
   setTimeout(()=>{
     const box = target.getBoundingClientRect();
-
     if(box.bottom <= 0 || box.top >= window.innerHeight){
       hand.style.opacity="0";
       return;
@@ -1618,41 +1526,26 @@ function moveHand(target){
 
 function hideHand(){
   if(!hand)return;
-
   hand.style.opacity="0";
   hand.style.visibility="hidden";
   hand.classList.remove("handScrollHidden");
 
-  document.querySelectorAll(".tutorialGlow").forEach(el=>{
-    el.classList.remove("tutorialGlow");
-  });
+  document.querySelectorAll(".tutorialGlow").forEach(el=>{ el.classList.remove("tutorialGlow"); });
 
-  if(demoTimer){
-    clearInterval(demoTimer);
-    demoTimer = null;
-  }
-  demoRun = false;
-
+  stopScratchDemo();
   tutorialTarget=null;
 }
 
 function tapHand(target){
   if(!target || !hand)return;
-
   const r = target.getBoundingClientRect();
 
   hand.style.left = (r.left + r.width/2 - 25) + "px";
   hand.style.top = (r.top + r.height/2 - 10) + "px";
-
   hand.classList.add("handPress");
 
-  setTimeout(()=>{
-    hand.classList.remove("handPress");
-  },180);
-
-  if(navigator.vibrate){
-    navigator.vibrate(25);
-  }
+  setTimeout(()=>{ hand.classList.remove("handPress"); },180);
+  if(navigator.vibrate){ navigator.vibrate(25); }
 }
 
 function startScratchDemo(){
@@ -1678,7 +1571,6 @@ function startScratchDemo(){
   ];
 
   let i=0;
-
   function move(){
     if(!demoRun)return;
     const p=path[i];
@@ -1689,9 +1581,18 @@ function startScratchDemo(){
 
     pAud("scS");
 
-    setTimeout(()=>{
-      hand.classList.remove("handPress");
-    },160);
+    // Demo spark creation
+    let spark = document.createElement("div");
+    spark.className = "scratchDemoSpark";
+    spark.innerHTML = "✨";
+    spark.style.left = p.x + "px";
+    spark.style.top = p.y + "px";
+    spark.style.setProperty("--sx", (Math.random()*40 - 20) + "px");
+    spark.style.setProperty("--sy", (Math.random()*40 - 20) + "px");
+    document.body.appendChild(spark);
+    setTimeout(()=>spark.remove(),800);
+
+    setTimeout(()=>{ hand.classList.remove("handPress"); },160);
 
     i++;
     if(i>=path.length){ i=0; }
@@ -1699,6 +1600,14 @@ function startScratchDemo(){
 
   move();
   demoTimer=setInterval(move,650);
+}
+
+function stopScratchDemo(){
+  if(demoTimer){
+    clearInterval(demoTimer);
+    demoTimer = null;
+  }
+  demoRun = false;
 }
 
 window.addEventListener("scroll", function(){
@@ -1726,11 +1635,7 @@ function tutorialCodeStep(){
   stopTutorialVoice();
 
   const btn = document.querySelector(".verify-box button");
-  if(!btn){
-    tutorialStep=2;
-    runTutorial();
-    return;
-  }
+  if(!btn){ tutorialStep=2; runTutorial(); return; }
 
   moveHand(btn);
 
@@ -1739,29 +1644,25 @@ function tutorialCodeStep(){
       stopTutorialTimer();
       stopTutorialVoice();
       hideHand();
-
       tutorialStep=2;
       setTimeout(runTutorial,700);
       return;
     }
-
     tapHand(btn);
     stopTutorialVoice();
-    speakBN("আপনাকে দেওয়া কোডটি লিখুন এবং সাবমিট করুন");
+    speakBN("আপনাকে দেওয়া! কোডটি লিখুন! এবং সাবমিট করুন");
   },4000);
-  }function tutorialSpinStep(){
+}
+
+function tutorialSpinStep(){
   stopTutorialTimer();
   stopTutorialVoice();
 
   const btn = document.getElementById("spinBtn");
-  if(!btn){
-    tutorialStep=3;
-    runTutorial();
-    return;
-  }
+  if(!btn){ tutorialStep=3; runTutorial(); return; }
 
   moveHand(btn);
-  speakBN("এখন চাকা টি ঘোরান। স্পিন করুন");
+  speakBN("এখন চাকা টি ঘোরান! স্পিন করুন! ক্যাশ জিতুন");
 
   tutorialTimer = setInterval(()=>{
     if(localStorage.getItem("spinStarted") === "1"){
@@ -1770,10 +1671,9 @@ function tutorialCodeStep(){
       hideHand();
       return;
     }
-
     tapHand(btn);
     stopTutorialVoice();
-    speakBN("এখন চাকা টি ঘোরান। স্পিন করুন");
+    speakBN("এখন! চাকা টি ঘোরান! স্পিন করুন! ক্যাশ জিতুন");
   },3500);
 }
 
@@ -1782,14 +1682,10 @@ function tutorialBonusStep(){
   stopTutorialVoice();
 
   const btn = document.getElementById("bonusBtn");
-  if(!btn){
-    tutorialStep=4;
-    runTutorial();
-    return;
-  }
+  if(!btn){ tutorialStep=4; runTutorial(); return; }
 
   moveHand(btn);
-  speakBN("এখন ফ্রি বোনাস বাটনে ক্লিক করে বোনাস নিন");
+  speakBN("এখনে ক্লিক করুন! ফ্রি বোনাস নিন");
 
   tutorialTimer = setInterval(()=>{
     if(localStorage.getItem("bonusStarted") === "1"){
@@ -1798,37 +1694,32 @@ function tutorialBonusStep(){
       hideHand();
       return;
     }
-
     tapHand(btn);
     stopTutorialVoice();
-    speakBN("এখন ফ্রি বোনাস বাটনে ক্লিক করে বোনাস নিন");
+    speakBN("এখনে ক্লিক করুন! ফ্রি বোনাস নিন");
   },3500);
 }
 
 function tutorialScratchStep(){
-  stopTutorialTimer();
-  stopTutorialVoice();
-
-  const card = document.getElementById("scratchCard");
-  if(!card){
-    tutorialStep=5;
-    runTutorial();
-    return;
+  if(localStorage.getItem("scratchDone")==="1"){
+    tutorialStep=4;
+    return runTutorial();
   }
 
-  speakBN("এখন স্ক্র্যাচ কার্ডটি ঘষুন");
+  stopTutorialVoice();
+  speakBN("এখন! স্ক্র্যাচ কার্ডটি ঘষে! পুরস্কারটি দেখুন");
   startScratchDemo();
 
-  tutorialTimer = setInterval(()=>{
-    if(localStorage.getItem("scratchDone") === "1"){
-      stopTutorialTimer();
+  let t=setInterval(()=>{
+    if(localStorage.getItem("scratchDone")==="1"){
+      clearInterval(t);
+      stopScratchDemo();
       stopTutorialVoice();
-      hideHand();
 
-      tutorialStep=5;
-      setTimeout(runTutorial,700);
+      tutorialStep=4;
+      setTimeout(()=>{ runTutorial(); },1000);
     }
-  },1000);
+  },500);
 }
 
 function tutorialComplete(){
@@ -1867,22 +1758,17 @@ function runTutorial(){
   }
 
   if(tutorialStep===3){
-    if(localStorage.getItem("bonusDone") === "1"){
-      tutorialStep=4;
-      setTimeout(runTutorial,300);
-      return;
-    }
-    tutorialBonusStep();
+    tutorialScratchStep();
     return;
   }
 
   if(tutorialStep===4){
-    if(localStorage.getItem("scratchDone") === "1"){
+    if(localStorage.getItem("bonusDone") === "1"){
       tutorialStep=5;
       setTimeout(runTutorial,300);
       return;
     }
-    tutorialScratchStep();
+    tutorialBonusStep();
     return;
   }
 
@@ -1891,26 +1777,12 @@ function runTutorial(){
   }
 }
 
-function startTutorial(){
-  stopTutorialTimer();
-  stopTutorialVoice();
-  hideHand();
-
-  if(localStorage.getItem("verified") === "1"){
-    tutorialStep=2;
-  }else{
-    tutorialStep=1;
-  }
-
-  runTutorial();
-}
-
 /* Page Startup */
-window.addEventListener("load", ()=>{
+window.onload=()=>{
+  playWelcomeSound();
+
   codeInput.value = localStorage.getItem("verify_code") || "";
-  if(codeInput.value){
-    verified = 1;
-  }
+  if(codeInput.value){ verified = 1; }
   initApp();
 
   let e=0,t=setInterval(()=>{
@@ -1928,7 +1800,6 @@ window.addEventListener("load", ()=>{
   setInterval(checkPayment,5000);
   setTimeout(showPromoSequence, 6000);
 
-  /* 12 Seconds Code Voice Trigger */
   setTimeout(()=>{
     if(localStorage.getItem("verified") === "1"){
       tutorialStep=2;
@@ -1938,7 +1809,7 @@ window.addEventListener("load", ()=>{
     tutorialStep=1;
     runTutorial();
   },12000);
-});
+};
 
 const bg=document.getElementById("bg"),gif=document.getElementById("gif"),s=document.getElementById("s");
 setTimeout(()=>{bg.style.display="none";gif.style.display="block";gif.src="img/splash2.gif"},3e3);
@@ -1947,4 +1818,3 @@ setTimeout(()=>{s.style.opacity="0";setTimeout(()=>s.remove(),500)},1e4);
 </script>
 </body>
 </html>
-  
